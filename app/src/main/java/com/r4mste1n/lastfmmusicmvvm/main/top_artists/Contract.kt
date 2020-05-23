@@ -1,6 +1,6 @@
 package com.r4mste1n.lastfmmusicmvvm.main.top_artists
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import com.r4mste1n.lastfmmusicmvvm.main.top_artists.adapter.AdapterData
 import com.r4mste1n.lastfmmusicmvvm.root.base.ViewContract
 import com.r4mste1n.lastfmmusicmvvm.root.base.ViewModelContract
@@ -19,7 +19,7 @@ interface Contract {
 
     interface ViewModel : ViewModelContract {
 
-        val topArtists: MutableLiveData<Result<ArrayList<AdapterData>>>
+        val topArtists: LiveData<Result<ArrayList<AdapterData>>>
 
         fun getArtists()
 

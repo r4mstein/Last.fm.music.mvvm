@@ -1,8 +1,6 @@
 package com.r4mste1n.lastfmmusicmvvm.main.top_artists
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.r4mste1n.lastfmmusicmvvm.main.repositories.top_artists.TopArtistsRepositoryContract
 import com.r4mste1n.lastfmmusicmvvm.main.top_artists.adapter.AdapterData
 import com.r4mste1n.lastfmmusicmvvm.main.top_artists.models.TopArtistsResponse
@@ -16,19 +14,33 @@ class TopArtistsViewModel(
     private val repository: TopArtistsRepositoryContract
 ) : ViewModel(), Contract.ViewModel {
 
-    override val topArtists = MutableLiveData<Result<ArrayList<AdapterData>>>()
+    private val _topArtists = MutableLiveData<Result<ArrayList<AdapterData>>>()
+
+    override val topArtists: LiveData<Result<ArrayList<AdapterData>>>
+        get() = Transformations.switchMap(repository.topArtists) {
+
+            _topArtists.postValue(getUiResult(it))
+
+            return@switchMap _topArtists
+        }
+
+    private fun getUiResult(result: Result<TopArtistsResponse>): Result<ArrayList<AdapterData>> {
+        return when (result) {
+            is Result.IsLoading -> {
+                Result.IsLoading
+            }
+            is Result.Error -> {
+                Result.Error(result.message)
+            }
+            is Result.Success -> {
+                Result.Success(convertLoadedDataToUiData(result.data))
+            }
+        }
+    }
 
     override fun getArtists() {
         viewModelScope.launch {
-            repository.loadTopArtists() {
-                when (it) {
-                    is Result.IsLoading -> topArtists.postValue(it)
-                    is Result.Success -> topArtists.postValue(
-                        Result.Success(convertLoadedDataToUiData(it.data))
-                    )
-                    is Result.Error -> topArtists.postValue(it)
-                }
-            }
+            repository.getTopArtists()
         }
     }
 

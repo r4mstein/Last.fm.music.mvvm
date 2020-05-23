@@ -1,55 +1,60 @@
 package com.r4mste1n.lastfmmusicmvvm.main.repositories.top_artists
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.r4mste1n.lastfmmusicmvvm.main.top_artists.models.TopArtistsResponse
 import com.r4mste1n.lastfmmusicmvvm.root.network.ErrorUtils
 import com.r4mste1n.lastfmmusicmvvm.root.network.Result
 import com.r4mste1n.lastfmmusicmvvm.root.network.api.LastFmApiHelper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 /**
  * Created by Alex Shtain on 03.05.2020.
  */
 
-private const val TOP_ARTISTS_LIMIT = 100
-
 class TopArtistsRepository : TopArtistsRepositoryContract {
 
-    private var topArtists: TopArtistsResponse? = null
+    private val _topArtists = MutableLiveData<Result<TopArtistsResponse>>()
 
-    override suspend fun loadTopArtists(listener: (Result<TopArtistsResponse>) -> Unit) {
+    override val topArtists: LiveData<Result<TopArtistsResponse>>
+        get() = _topArtists
 
-        topArtists?.let {
-            listener(Result.Success(it))
+    override suspend fun getTopArtists() {
+
+        if (_topArtists.value is Result.Success) {
             return
         }
 
-        listener(Result.IsLoading)
+        _topArtists.postValue(Result.IsLoading)
 
         var errorMessage: String? = null
         var response: TopArtistsResponse? = null
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                response = LastFmApiHelper.lastFmApi.getTopArtists(
-                    limit = TOP_ARTISTS_LIMIT
-                )
-            } catch (exception: HttpException) {
-                errorMessage = ErrorUtils.parseError(exception.response()?.errorBody())
-            } catch (exception: Exception) {
-                errorMessage = exception.message
-            }
-        }.join()
+        try {
+            response = LastFmApiHelper.lastFmApi.getTopArtists(
+                limit = TOP_ARTISTS_LIMIT
+            )
+        } catch (exception: HttpException) {
+            errorMessage = ErrorUtils.parseError(exception.response()?.errorBody())
+        } catch (exception: Exception) {
+            errorMessage = exception.message
+        }
 
         when (response) {
-            null -> listener(Result.Error(errorMessage))
+            null -> {
+                _topArtists.postValue(Result.Error(errorMessage))
+            }
             else -> {
-                topArtists = response
-                listener(Result.Success(response!!))
+                _topArtists.postValue(Result.Success(response))
             }
         }
+
+    }
+
+    companion object {
+
+        private const val TOP_ARTISTS_LIMIT = 100
+
     }
 
 }

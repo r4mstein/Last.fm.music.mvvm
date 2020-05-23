@@ -1,5 +1,6 @@
 package com.r4mste1n.lastfmmusicmvvm.main.repositories.artist_info
 
+import androidx.lifecycle.LiveData
 import com.r4mste1n.lastfmmusicmvvm.main.artist_info.models.ArtistInfoResponse
 import com.r4mste1n.lastfmmusicmvvm.root.network.Result
 
@@ -8,9 +9,8 @@ import com.r4mste1n.lastfmmusicmvvm.root.network.Result
  */
 interface ArtistInfoRepositoryContract {
 
-    suspend fun loadArtistInfo(
-        artistName: String,
-        listener: (Result<ArtistInfoResponse>) -> Unit
-    )
+    val artistInfo: LiveData<Result<ArtistInfoResponse>>
+
+    suspend fun loadArtistInfo(artistName: String)
 
 }

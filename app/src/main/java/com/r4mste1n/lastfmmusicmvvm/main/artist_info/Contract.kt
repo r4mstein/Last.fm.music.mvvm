@@ -1,6 +1,6 @@
 package com.r4mste1n.lastfmmusicmvvm.main.artist_info
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import com.r4mste1n.lastfmmusicmvvm.main.artist_info.models.UiData
 import com.r4mste1n.lastfmmusicmvvm.root.base.ViewContract
 import com.r4mste1n.lastfmmusicmvvm.root.base.ViewModelContract
@@ -19,7 +19,7 @@ interface Contract {
 
     interface ViewModel : ViewModelContract {
 
-        val artistInfo: MutableLiveData<Result<UiData>>
+        val artistInfo: LiveData<Result<UiData>>
 
         fun loadArtistInfo(artistName: String)
 

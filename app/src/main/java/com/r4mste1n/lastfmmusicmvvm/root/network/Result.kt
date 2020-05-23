@@ -7,9 +7,7 @@ sealed class Result<out T : Any> {
 
     class Success<out T : Any>(val data: T) : Result<T>()
 
-    class Error(val message: String?) : Result<Nothing>()
-
-    class CodeError(val code: String?, val message: String?) : Result<Nothing>()
+    class Error(val message: String?, val code: String? = null) : Result<Nothing>()
 
     object IsLoading : Result<Nothing>()
 

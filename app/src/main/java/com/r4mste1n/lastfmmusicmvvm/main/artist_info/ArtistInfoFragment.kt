@@ -22,23 +22,23 @@ class ArtistInfoFragment : BaseFragment<Contract.ViewModel, Contract.View>() {
     override val view: ArtistInfoView = ArtistInfoView()
     override val layout: Int = R.layout.fr_artist_info
 
-    companion object {
-
-        const val ARTIST_NAME_KEY = "artist_name_key"
-
-        fun newInstance(artistName: String) = ArtistInfoFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARTIST_NAME_KEY, artistName)
-            }
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.artistInfo.observe(viewLifecycleOwner, Observer {
             this.view.renderResult(it)
         })
+    }
+
+    companion object {
+
+        const val ARG_ARTIST_NAME = "arg_artist_name"
+
+        fun newInstance(artistName: String) = ArtistInfoFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_ARTIST_NAME, artistName)
+            }
+        }
     }
 
 }

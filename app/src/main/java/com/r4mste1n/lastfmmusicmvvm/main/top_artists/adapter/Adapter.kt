@@ -44,12 +44,12 @@ class Adapter(private val clickListener: (item: AdapterData) -> Unit) :
 
         fun bind(data: AdapterData) {
             itemView.apply {
-                tvName.text = data.name
-                tvHearersCount.text = context.resources.getString(
+                name.text = data.name
+                hearersCount.text = context.resources.getString(
                     R.string.listeners,
                     data.hearersCount.formatCount()
                 )
-                ivPhoto.loadImage(
+                photo.loadImage(
                     url = data.photoUrl ?: "",
                     transformType = ImageTransformType.CenterCrop
                 )

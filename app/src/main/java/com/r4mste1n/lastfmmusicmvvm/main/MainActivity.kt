@@ -18,11 +18,11 @@ class MainActivity : BaseActivity() {
 
     override fun setupUI() {
         setupToolbar()
-        errorBehavior = BottomSheetBehavior.from(llErrorContainer).apply {
+        errorBehavior = BottomSheetBehavior.from(errorContainer).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        showTopArtistsFragment()
+        if (supportFragmentManager.fragments.size == 0) showTopArtistsFragment()
     }
 
     private fun setupToolbar() {
@@ -39,27 +39,31 @@ class MainActivity : BaseActivity() {
     }
 
     fun showTopArtistsFragment() {
-        addFragment(R.id.flRootContainer, TopArtistsFragment.newInstance())
+        addFragment(R.id.fragmentContainer, TopArtistsFragment.newInstance())
     }
 
     fun showArtistInfo(artistName: String) {
         replaceFragmentAndAddToBackStack(
-            R.id.flRootContainer,
+            R.id.fragmentContainer,
             ArtistInfoFragment.newInstance(artistName)
         )
     }
 
     fun showProgressBar() {
-        if (pbLoader.visibility == View.GONE) pbLoader.visibility = View.VISIBLE
+        if (loader.visibility == View.GONE) {
+            loader.visibility = View.VISIBLE
+        }
     }
 
     fun hideProgressBar() {
-        if (pbLoader.visibility == View.VISIBLE) pbLoader.visibility = View.GONE
+        if (loader.visibility == View.VISIBLE) {
+            loader.visibility = View.GONE
+        }
     }
 
     fun showError(error: String) {
         if (errorBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
-            tvErrorMessage.text = error
+            errorMessage.text = error
             errorBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
     }

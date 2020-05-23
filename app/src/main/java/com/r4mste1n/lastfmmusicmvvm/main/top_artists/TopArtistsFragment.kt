@@ -22,16 +22,17 @@ class TopArtistsFragment : BaseFragment<Contract.ViewModel, Contract.View>() {
     override val view = TopArtistsView()
     override val layout: Int = R.layout.fr_top_artists
 
-    companion object {
-        fun newInstance() = TopArtistsFragment()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.topArtists.observe(viewLifecycleOwner, Observer {
             this.view.renderResult(it)
         })
+        viewModel.getArtists()
+    }
+
+    companion object {
+        fun newInstance() = TopArtistsFragment()
     }
 
 }

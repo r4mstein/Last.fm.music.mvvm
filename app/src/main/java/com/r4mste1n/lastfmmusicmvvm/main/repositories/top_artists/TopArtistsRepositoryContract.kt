@@ -1,5 +1,6 @@
 package com.r4mste1n.lastfmmusicmvvm.main.repositories.top_artists
 
+import androidx.lifecycle.LiveData
 import com.r4mste1n.lastfmmusicmvvm.main.top_artists.models.TopArtistsResponse
 import com.r4mste1n.lastfmmusicmvvm.root.network.Result
 
@@ -8,6 +9,8 @@ import com.r4mste1n.lastfmmusicmvvm.root.network.Result
  */
 interface TopArtistsRepositoryContract {
 
-    suspend fun loadTopArtists(listener: (Result<TopArtistsResponse>) -> Unit)
+    val topArtists: LiveData<Result<TopArtistsResponse>>
+
+    suspend fun getTopArtists()
 
 }

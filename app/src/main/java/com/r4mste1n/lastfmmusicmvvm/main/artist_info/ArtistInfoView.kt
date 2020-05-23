@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fr_artist_info.view.*
 class ArtistInfoView : BaseView<Contract.ViewModel>(), Contract.View {
 
     override fun onViewCreated(bundle: Bundle?) {
-        viewModel.loadArtistInfo(bundle?.getString(ArtistInfoFragment.ARTIST_NAME_KEY).orEmpty())
+        viewModel.loadArtistInfo(bundle?.getString(ArtistInfoFragment.ARG_ARTIST_NAME).orEmpty())
     }
 
     override fun setupUI() {
@@ -61,16 +61,16 @@ class ArtistInfoView : BaseView<Contract.ViewModel>(), Contract.View {
     }
 
     private fun setArtistPhoto(link: String) {
-        rootView.ivPhoto?.loadImage(url = link, transformType = ImageTransformType.CircleCrop)
+        rootView.photo?.loadImage(url = link, transformType = ImageTransformType.CircleCrop)
     }
 
     private fun setArtistName(name: String) {
-        rootView.tvName?.text = name
+        rootView.name?.text = name
     }
 
     private fun setArtistTags(tags: List<String>) {
         tags.forEach { tag ->
-            rootView.llTagsContainer?.addView(getTagChip(tag))
+            rootView.tagsContainer?.addView(getTagChip(tag))
         }
     }
 
@@ -97,21 +97,21 @@ class ArtistInfoView : BaseView<Contract.ViewModel>(), Contract.View {
     }
 
     private fun setHearersCount(count: String) {
-        rootView.tvHearersCount?.text =
+        rootView.hearersCount?.text =
             context.resources?.getString(R.string.listeners, count.formatCount())
     }
 
     private fun setPlayCount(count: String) {
-        rootView.tvPlayCount?.text =
+        rootView.playCount?.text =
             context.resources?.getString(R.string.play_count, count.formatCount())
     }
 
     private fun setBio(bio: String) {
-        rootView.tvBio?.text = bio
+        rootView.bio?.text = bio
     }
 
     private fun setBioPublished(date: String) {
-        rootView.tvPublished?.text = context.resources?.getString(R.string.published, date)
+        rootView.published?.text = context.resources?.getString(R.string.published, date)
     }
 
 }
