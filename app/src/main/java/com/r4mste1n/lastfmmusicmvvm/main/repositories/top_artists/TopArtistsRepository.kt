@@ -5,14 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import com.r4mste1n.lastfmmusicmvvm.main.top_artists.models.TopArtistsResponse
 import com.r4mste1n.lastfmmusicmvvm.root.network.ErrorUtils
 import com.r4mste1n.lastfmmusicmvvm.root.network.Result
-import com.r4mste1n.lastfmmusicmvvm.root.network.api.LastFmApiHelper
+import com.r4mste1n.lastfmmusicmvvm.root.network.api.LastFmApi
 import retrofit2.HttpException
+import javax.inject.Inject
 
 /**
  * Created by Alex Shtain on 03.05.2020.
  */
 
-class TopArtistsRepository : TopArtistsRepositoryContract {
+class TopArtistsRepository @Inject constructor(
+    private val lastFmApi: LastFmApi
+) : TopArtistsRepositoryContract {
 
     private val _topArtists = MutableLiveData<Result<TopArtistsResponse>>()
 
@@ -31,7 +34,7 @@ class TopArtistsRepository : TopArtistsRepositoryContract {
         var response: TopArtistsResponse? = null
 
         try {
-            response = LastFmApiHelper.lastFmApi.getTopArtists(
+            response = lastFmApi.getTopArtists(
                 limit = TOP_ARTISTS_LIMIT
             )
         } catch (exception: HttpException) {

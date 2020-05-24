@@ -6,11 +6,12 @@ import com.r4mste1n.lastfmmusicmvvm.main.top_artists.adapter.AdapterData
 import com.r4mste1n.lastfmmusicmvvm.main.top_artists.models.TopArtistsResponse
 import com.r4mste1n.lastfmmusicmvvm.root.network.Result
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Alex Shtain on 02.05.2020.
  */
-class TopArtistsViewModel(
+class TopArtistsViewModel @Inject constructor(
     private val repository: TopArtistsRepositoryContract
 ) : ViewModel(), Contract.ViewModel {
 

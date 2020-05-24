@@ -8,14 +8,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 /**
  * Created by Alex Shtain on 18.04.2020.
  */
 
-object RetrofitHelper {
+class RetrofitHelper @Inject constructor() : RetrofitHelperContract {
 
-    fun <T> createService(_class: Class<T>, level: HttpLoggingInterceptor.Level): T =
+    override fun <T> createService(_class: Class<T>, level: HttpLoggingInterceptor.Level): T =
         getRetrofit(getOkHttpBuilder(level)).create(_class)
 
     private fun getRetrofit(builder: OkHttpClient.Builder) = Retrofit.Builder()
