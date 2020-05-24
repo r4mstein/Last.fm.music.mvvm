@@ -7,11 +7,10 @@ import android.view.View
 /**
  * Created by Alex Shtain on 09.05.2020.
  */
-abstract class BaseView<VM : ViewModelContract> : ViewContract {
+abstract class BaseView : ViewContract {
 
     protected lateinit var rootView: View
     protected lateinit var context: Context
-    protected lateinit var viewModel: VM
 
     abstract fun setupUI()
 
@@ -21,8 +20,7 @@ abstract class BaseView<VM : ViewModelContract> : ViewContract {
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun onCreateView(viewModel: ViewModelContract) {
-        this.viewModel = viewModel as VM
+    override fun onCreateView() {
         setupUI()
     }
 

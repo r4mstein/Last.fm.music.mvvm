@@ -10,7 +10,7 @@ interface ViewContract {
 
     fun setContentView(rootView: View)
 
-    fun onCreateView(viewModel: ViewModelContract)
+    fun onCreateView()
 
     fun onViewCreated(bundle: Bundle?)
 

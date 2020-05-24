@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * Created by Alex Shtain on 02.05.2020.
  */
-class TopArtistsView @Inject constructor() : BaseView<Contract.ViewModel>(), Contract.View {
+class TopArtistsView @Inject constructor() : BaseView(), Contract.View {
 
     private lateinit var listAdapter: Adapter
 

@@ -19,7 +19,7 @@ import javax.inject.Inject
 /**
  * Created by Alex Shtain on 03.05.2020.
  */
-class ArtistInfoView @Inject constructor() : BaseView<Contract.ViewModel>(), Contract.View {
+class ArtistInfoView @Inject constructor() : BaseView(), Contract.View {
 
     override fun setupUI() {
         (context as MainActivity).setToolbarTitle(context.getString(R.string.artist_info_toolbar_title))
