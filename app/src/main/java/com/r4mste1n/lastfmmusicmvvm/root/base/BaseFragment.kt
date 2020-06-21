@@ -21,7 +21,7 @@ abstract class BaseFragment<VM : ViewModelContract, V : ViewContract> : Fragment
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(layout, container, false).also {
         view.setContentView(it)
-        view.onCreateView(viewModel)
+        view.onCreateView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

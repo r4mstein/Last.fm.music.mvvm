@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.r4mste1n.lastfmmusicmvvm"
@@ -33,6 +33,10 @@ android {
         kotlinOptions {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
+    }
+
+    kapt {
+        correctErrorTypes true
     }
 
 }
@@ -78,5 +82,9 @@ dependencies {
     // Logging
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // DI
+    implementation 'com.google.dagger:dagger:2.27'
+    kapt 'com.google.dagger:dagger-compiler:2.27'
 
 }

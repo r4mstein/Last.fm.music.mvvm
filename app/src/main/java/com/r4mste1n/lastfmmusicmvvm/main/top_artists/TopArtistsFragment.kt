@@ -1,26 +1,41 @@
 package com.r4mste1n.lastfmmusicmvvm.main.top_artists
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.r4mste1n.lastfmmusicmvvm.R
-import com.r4mste1n.lastfmmusicmvvm.main.repositories.top_artists.TopArtistsRepository
-import com.r4mste1n.lastfmmusicmvvm.main.repositories.top_artists.TopArtistsRepositoryContract
 import com.r4mste1n.lastfmmusicmvvm.root.base.BaseFragment
+import com.r4mste1n.lastfmmusicmvvm.root.di.ObjectGraph
+import javax.inject.Inject
 
 /**
  * Created by Alex Shtain on 02.05.2020.
  */
 class TopArtistsFragment : BaseFragment<Contract.ViewModel, Contract.View>() {
 
-    override val viewModel: TopArtistsViewModel by viewModels {
-        TopArtistsFactory(TopArtistsRepository())
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+
+    override val viewModel: TopArtistsViewModel by viewModels() {
+        factory
     }
-    override val view = TopArtistsView()
+
+    @Inject
+    override lateinit var view: TopArtistsView
     override val layout: Int = R.layout.fr_top_artists
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        ObjectGraph.getMainComponent().inject(this)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,20 +47,9 @@ class TopArtistsFragment : BaseFragment<Contract.ViewModel, Contract.View>() {
     }
 
     companion object {
+
         fun newInstance() = TopArtistsFragment()
+
     }
 
-}
-
-class TopArtistsFactory(private val repository: TopArtistsRepositoryContract) :
-    ViewModelProvider.NewInstanceFactory() {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return if (modelClass.isAssignableFrom(TopArtistsViewModel::class.java)) {
-            TopArtistsViewModel(repository) as T
-        } else {
-            throw IllegalArgumentException("ViewModel Not Found")
-        }
-    }
 }

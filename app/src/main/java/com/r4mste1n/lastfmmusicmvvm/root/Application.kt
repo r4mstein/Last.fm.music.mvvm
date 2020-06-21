@@ -2,6 +2,7 @@ package com.r4mste1n.lastfmmusicmvvm.root
 
 import android.app.Application
 import com.r4mste1n.lastfmmusicmvvm.BuildConfig
+import com.r4mste1n.lastfmmusicmvvm.root.di.ObjectGraph
 import timber.log.Timber
 
 /**
@@ -14,6 +15,10 @@ class Application : Application() {
 
         // initialise Timber
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
+
+        // initialize di
+        ObjectGraph.initAppComponent(this)
+
     }
 
 }

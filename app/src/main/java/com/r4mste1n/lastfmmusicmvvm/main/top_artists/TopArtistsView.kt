@@ -8,11 +8,12 @@ import com.r4mste1n.lastfmmusicmvvm.main.top_artists.adapter.AdapterData
 import com.r4mste1n.lastfmmusicmvvm.root.base.BaseView
 import com.r4mste1n.lastfmmusicmvvm.root.network.Result
 import kotlinx.android.synthetic.main.fr_top_artists.view.*
+import javax.inject.Inject
 
 /**
  * Created by Alex Shtain on 02.05.2020.
  */
-class TopArtistsView : BaseView<Contract.ViewModel>(), Contract.View {
+class TopArtistsView @Inject constructor() : BaseView(), Contract.View {
 
     private lateinit var listAdapter: Adapter
 

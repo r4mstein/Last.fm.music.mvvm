@@ -1,6 +1,5 @@
 package com.r4mste1n.lastfmmusicmvvm.main.artist_info
 
-import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -15,15 +14,12 @@ import com.r4mste1n.lastfmmusicmvvm.root.extensions.formatCount
 import com.r4mste1n.lastfmmusicmvvm.root.extensions.loadImage
 import com.r4mste1n.lastfmmusicmvvm.root.network.Result
 import kotlinx.android.synthetic.main.fr_artist_info.view.*
+import javax.inject.Inject
 
 /**
  * Created by Alex Shtain on 03.05.2020.
  */
-class ArtistInfoView : BaseView<Contract.ViewModel>(), Contract.View {
-
-    override fun onViewCreated(bundle: Bundle?) {
-        viewModel.loadArtistInfo(bundle?.getString(ArtistInfoFragment.ARG_ARTIST_NAME).orEmpty())
-    }
+class ArtistInfoView @Inject constructor() : BaseView(), Contract.View {
 
     override fun setupUI() {
         (context as MainActivity).setToolbarTitle(context.getString(R.string.artist_info_toolbar_title))

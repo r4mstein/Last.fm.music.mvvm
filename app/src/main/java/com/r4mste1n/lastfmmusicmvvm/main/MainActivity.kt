@@ -8,6 +8,7 @@ import com.r4mste1n.lastfmmusicmvvm.R
 import com.r4mste1n.lastfmmusicmvvm.main.artist_info.ArtistInfoFragment
 import com.r4mste1n.lastfmmusicmvvm.main.top_artists.TopArtistsFragment
 import com.r4mste1n.lastfmmusicmvvm.root.base.BaseActivity
+import com.r4mste1n.lastfmmusicmvvm.root.di.ObjectGraph
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.error_layout.*
 
@@ -17,12 +18,20 @@ class MainActivity : BaseActivity() {
     override val layout = R.layout.activity_main
 
     override fun setupUI() {
+
+        ObjectGraph.getMainComponent().inject(this)
+
         setupToolbar()
         errorBehavior = BottomSheetBehavior.from(errorContainer).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
         }
 
         if (supportFragmentManager.fragments.size == 0) showTopArtistsFragment()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ObjectGraph.destroyMainComponent()
     }
 
     private fun setupToolbar() {
