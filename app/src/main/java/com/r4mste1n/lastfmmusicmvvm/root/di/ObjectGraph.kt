@@ -19,11 +19,9 @@ object ObjectGraph {
             .buildAppComponent()
     }
 
-    fun getMainComponent(): DiMainComponent? {
-        if (mainComponent == null) {
-            mainComponent = DaggerDiMainComponent.builder().diAppComponent(appComponent).build()
-        }
-        return mainComponent
+    fun getMainComponent(): DiMainComponent {
+
+        return mainComponent ?: DaggerDiMainComponent.builder().diAppComponent(appComponent).build()
     }
 
     fun destroyMainComponent() {

@@ -19,7 +19,7 @@ class MainActivity : BaseActivity() {
 
     override fun setupUI() {
 
-        ObjectGraph.getMainComponent()?.inject(this)
+        ObjectGraph.getMainComponent().inject(this)
 
         setupToolbar()
         errorBehavior = BottomSheetBehavior.from(errorContainer).apply {

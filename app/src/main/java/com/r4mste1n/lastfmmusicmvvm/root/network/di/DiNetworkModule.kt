@@ -4,7 +4,7 @@ import com.r4mste1n.lastfmmusicmvvm.root.di.AppScope
 import com.r4mste1n.lastfmmusicmvvm.root.network.RetrofitHelper
 import com.r4mste1n.lastfmmusicmvvm.root.network.RetrofitHelperContract
 import com.r4mste1n.lastfmmusicmvvm.root.network.api.LastFmApi
-import dagger.Binds
+import com.r4mste1n.lastfmmusicmvvm.root.network.createService
 import dagger.Module
 import dagger.Provides
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,25 +12,22 @@ import okhttp3.logging.HttpLoggingInterceptor
 /**
  * Created by Alex Shtain on 23.05.2020.
  */
-@Module(includes = [DiNetworkModule.DiNetworkBinds::class])
-@Suppress("unused")
+@Module
 class DiNetworkModule {
 
     @AppScope
     @Provides
-    fun provideLastFmApi(retrofitHelper: RetrofitHelper): LastFmApi {
-        return retrofitHelper.createService(
-            LastFmApi::class.java,
-            HttpLoggingInterceptor.Level.BODY
-        )
+    fun provideLastFmApi(retrofitHelper: RetrofitHelperContract): LastFmApi {
+        return retrofitHelper
+            .getRetrofit(HttpLoggingInterceptor.Level.BODY)
+            .createService(LastFmApi::class.java)
     }
 
     @Module
-    abstract class DiNetworkBinds {
+    companion object {
 
-        @AppScope
-        @Binds
-        abstract fun provideRetrofitHelper(retrofitHelper: RetrofitHelper): RetrofitHelperContract
+        @Provides
+        fun provideRetrofitHelper(): RetrofitHelperContract = RetrofitHelper()
 
     }
 

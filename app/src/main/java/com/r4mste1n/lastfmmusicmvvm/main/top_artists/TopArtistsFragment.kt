@@ -33,7 +33,7 @@ class TopArtistsFragment : BaseFragment<Contract.ViewModel, Contract.View>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        ObjectGraph.getMainComponent()?.inject(this)
+        ObjectGraph.getMainComponent().inject(this)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
