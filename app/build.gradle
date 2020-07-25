@@ -45,11 +45,26 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    // Local modules
+
+    implementation project(':core-navigator-api')
+    implementation project(':core-common')
+    implementation project(':core-network-api')
+    implementation project(':core-network-impl')
+    implementation project(':core-repositories-api')
+    implementation project(':core-repositories-impl')
+    implementation project(':feature-home-api')
+    implementation project(':feature-home-impl')
+    implementation project(':feature-top-artists-api')
+    implementation project(':feature-top-artists-impl')
+    implementation project(':feature-artist-info-api')
+    implementation project(':feature-artist-info-impl')
+
     // Core
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.fragment:fragment-ktx:1.2.4'
+    implementation 'androidx.core:core-ktx:1.3.0'
+    implementation 'androidx.fragment:fragment-ktx:1.2.5'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.1.0'
 
@@ -60,9 +75,9 @@ dependencies {
 
     // Networking, REST
 
-    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
 
     // Image loading
 
@@ -84,7 +99,7 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // DI
-    implementation 'com.google.dagger:dagger:2.27'
-    kapt 'com.google.dagger:dagger-compiler:2.27'
+    implementation 'com.google.dagger:dagger:2.28'
+    kapt 'com.google.dagger:dagger-compiler:2.28'
 
 }
