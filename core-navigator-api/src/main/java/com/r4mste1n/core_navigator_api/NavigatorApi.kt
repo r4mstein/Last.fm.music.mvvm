@@ -18,4 +18,14 @@ interface NavigatorApi {
         artistName: String
     )
 
+    fun showHomeFragment(
+        activity: AppCompatActivity,
+        containerId: Int
+    )
+
+    fun showTopTracksFragment(
+        activity: AppCompatActivity,
+        containerId: Int
+    )
+
 }

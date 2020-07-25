@@ -59,6 +59,8 @@ dependencies {
     implementation project(':feature-top-artists-impl')
     implementation project(':feature-artist-info-api')
     implementation project(':feature-artist-info-impl')
+    implementation project(':feature-top-tracks-api')
+    implementation project(':feature-top-tracks-impl')
 
     // Core
 

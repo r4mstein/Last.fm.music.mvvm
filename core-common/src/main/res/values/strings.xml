@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="top_artists_header">Top Artists</string>
+    <string name="top_songs_header">Top Songs</string>
+
+    <string name="top_artists_toolbar_title">Top 100 artists</string>
+    <string name="top_songs_toolbar_title">Top 100 songs</string>
+
+    <string name="default_error_message">Something went wrong</string>
+
+</resources>
