@@ -2,8 +2,11 @@ package com.r4mste1n.feature_home_impl.starter
 
 import android.content.Context
 import android.content.Intent
+import androidx.fragment.app.Fragment
+import com.r4mste1n.feature_home_api.HomeFragmentApi
 import com.r4mste1n.feature_home_api.HomeStarterApi
 import com.r4mste1n.feature_home_impl.HomeActivity
+import com.r4mste1n.feature_home_impl.homefragment.HomeFragment
 import javax.inject.Inject
 
 /**
@@ -18,5 +21,8 @@ class HomeStarterImpl @Inject constructor() : HomeStarterApi {
             }
         )
     }
+
+    override fun getHomeFragment(adapterItems: List<Fragment>): HomeFragmentApi =
+        HomeFragment.newInstance(adapterItems)
 
 }

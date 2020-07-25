@@ -17,7 +17,6 @@ class TopArtistsView @Inject constructor() : BaseView(), Contract.View {
     private lateinit var listAdapter: Adapter
 
     override fun setupUI() {
-        (context as HomeApi).setToolbarTitle(context.getString(R.string.top_artists_toolbar_title))
         setupList()
     }
 

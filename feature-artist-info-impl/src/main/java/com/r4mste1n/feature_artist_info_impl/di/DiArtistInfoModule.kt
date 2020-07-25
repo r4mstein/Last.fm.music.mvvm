@@ -25,7 +25,6 @@ abstract class DiArtistInfoModule {
     @Binds
     abstract fun provideStarter(starter: ArtistInfoStarterImpl): ArtistInfoStarterApi
 
-    @FeatureScope
     @Binds
     @IntoMap
     @ViewModelKey(ArtistInfoViewModel::class)

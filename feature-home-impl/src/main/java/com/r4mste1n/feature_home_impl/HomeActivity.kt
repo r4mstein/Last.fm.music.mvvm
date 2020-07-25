@@ -32,7 +32,9 @@ class HomeActivity : BaseActivity(), HomeApi {
             state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        if (supportFragmentManager.fragments.size == 0) showTopArtistsFragment()
+        if (supportFragmentManager.fragments.size == 0) {
+            navigatorApi.showHomeFragment(this, R.id.fragmentContainer)
+        }
     }
 
     private fun setupToolbar() {

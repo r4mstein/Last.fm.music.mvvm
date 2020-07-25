@@ -25,7 +25,6 @@ abstract class DiTopArtistsModule {
     @Binds
     abstract fun provideStarter(starter: TopArtistsStarterImpl): TopArtistsStarterApi
 
-    @FeatureScope
     @Binds
     @IntoMap
     @ViewModelKey(TopArtistsViewModel::class)

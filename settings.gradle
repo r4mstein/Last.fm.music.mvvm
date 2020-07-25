@@ -1,3 +1,5 @@
+include ':feature-top-tracks-impl'
+include ':feature-top-tracks-api'
 include ':core-navigator-api'
 include ':feature-artist-info-impl'
 include ':feature-artist-info-api'

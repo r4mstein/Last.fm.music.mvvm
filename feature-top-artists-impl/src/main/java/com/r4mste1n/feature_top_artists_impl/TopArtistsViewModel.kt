@@ -52,7 +52,7 @@ class TopArtistsViewModel @Inject constructor(
                     AdapterData(
                         name = it.name,
                         hearersCount = it.listeners,
-                        photoUrl = it.image?.getOrNull(2)?.text ?: ""
+                        photoUrl = it.image?.getOrNull(2)?.text.orEmpty()
                     )
                 )
             }

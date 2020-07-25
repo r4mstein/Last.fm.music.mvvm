@@ -1,5 +1,6 @@
 package com.r4mste1n.lastfmmusicmvvm.root.di
 
+import androidx.fragment.app.Fragment
 import com.r4mste1n.core_network_impl.di.DiNetworkComponent
 import com.r4mste1n.core_repositories_impl.di.DaggerDiRepositoriesComponent_DiRepositoriesDependenciesComponent
 import com.r4mste1n.core_repositories_impl.di.DiRepositoriesComponent
@@ -9,6 +10,8 @@ import com.r4mste1n.feature_home_impl.di.DaggerDiHomeComponent_DiHomeDependencie
 import com.r4mste1n.feature_home_impl.di.DiHomeComponent
 import com.r4mste1n.feature_top_artists_impl.di.DaggerDiTopArtistsComponent_DiTopArtistsDependenciesComponent
 import com.r4mste1n.feature_top_artists_impl.di.DiTopArtistsComponent
+import com.r4mste1n.feature_top_tracks_impl.di.DaggerDiTopTracksComponent_DiTopTracksDependenciesComponent
+import com.r4mste1n.feature_top_tracks_impl.di.DiTopTracksComponent
 import com.r4mste1n.lastfmmusicmvvm.root.NavigatorImpl
 
 /**
@@ -34,6 +37,9 @@ object ObjectGraph {
         )
     }
 
+    fun getHomeFragment(adapterItems: List<Fragment>) =
+        DiHomeComponent.get().homeStarterApi().getHomeFragment(adapterItems)
+
     fun getArtistInfo() = DiArtistInfoComponent.initAndGet(
         DaggerDiArtistInfoComponent_DiArtistInfoDependenciesComponent.builder()
             .artistInfoRepoApi(getRepositoriesComponent().artistInfoRepoApi())
@@ -43,6 +49,12 @@ object ObjectGraph {
     fun getTopArtists() = DiTopArtistsComponent.initAndGet(
         DaggerDiTopArtistsComponent_DiTopArtistsDependenciesComponent.builder()
             .topArtistsRepoApi(getRepositoriesComponent().topArtistsRepoApi())
+            .build()
+    )
+
+    fun getTopTracks() = DiTopTracksComponent.initAndGet(
+        DaggerDiTopTracksComponent_DiTopTracksDependenciesComponent.builder()
+            .topTracksRepoApi(getRepositoriesComponent().topTracksRepoApi())
             .build()
     )
 
