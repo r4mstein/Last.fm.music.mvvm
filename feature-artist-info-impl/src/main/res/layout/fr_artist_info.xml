@@ -30,7 +30,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/firasans_bold"
             android:maxLines="2"
-            android:textColor="@android:color/black"
+            android:textColor="@color/teal_300"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/photo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,39 +61,40 @@
 
         </HorizontalScrollView>
 
-        <TextView
-            android:id="@+id/hearersCount"
-            android:layout_width="0dp"
+        <com.r4mste1n.core_common.custom_views.InfoView
+            android:id="@+id/hearersCountNew"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
-            android:alpha="0.7"
-            android:fontFamily="@font/firasans_bold"
-            android:gravity="end"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            app:bg_color="@color/teal_200"
+            app:header_font="@font/firasans_light_italic"
+            app:icon="@drawable/ic_listening"
+            app:icon_height="48dp"
+            app:icon_padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tags"
-            tools:text="Listeners: 7777" />
+            app:main_font="@font/firasans_light_italic"
+            app:padding="16dp"
+            app:text_color="@android:color/white"
+            app:text_size="16sp" />
 
-        <TextView
-            android:id="@+id/playCount"
-            android:layout_width="0dp"
+        <com.r4mste1n.core_common.custom_views.InfoView
+            android:id="@+id/playCountNew"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
-            android:alpha="0.7"
-            android:fontFamily="@font/firasans_bold"
-            android:gravity="end"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            app:bg_color="@color/teal_300"
+            app:header_font="@font/firasans_light_italic"
+            app:icon="@drawable/ic_play_count"
+            app:icon_height="48dp"
+            app:icon_padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hearersCount"
-            tools:text="Play count: 77777" />
+            app:layout_constraintTop_toBottomOf="@+id/hearersCountNew"
+            app:main_font="@font/firasans_light_italic"
+            app:padding="16dp"
+            app:text_color="@android:color/white"
+            app:text_size="16sp" />
 
         <TextView
             android:id="@+id/bio"
@@ -102,13 +103,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:alpha="0.85"
             android:fontFamily="@font/firasans_regular"
-            android:textColor="@android:color/black"
+            android:textColor="@color/teal_300"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playCount"
+            app:layout_constraintTop_toBottomOf="@+id/playCountNew"
             tools:text="bla bla" />
 
         <TextView
@@ -118,10 +118,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:alpha="0.6"
             android:fontFamily="@font/firasans_bold"
             android:gravity="end"
-            android:textColor="@android:color/black"
+            android:textColor="@color/teal_201"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

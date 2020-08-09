@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="InfoView">
+
+        <attr name="header_text" format="string" />
+        <attr name="main_text" format="string" />
+        <attr name="padding" format="dimension" />
+        <attr name="icon_height" format="dimension" />
+        <attr name="icon_padding" format="dimension" />
+        <attr name="text_size" format="dimension" />
+        <attr name="bg_color" format="color" />
+        <attr name="text_color" format="color" />
+        <attr name="header_font" format="reference" />
+        <attr name="main_font" format="reference" />
+        <attr name="icon" format="reference" />
+
+    </declare-styleable>
+
+</resources>
