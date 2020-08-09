@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/start">
+
+        <Constraint android:id="@+id/centerGuideline" />
+
+        <Constraint
+            android:id="@+id/showImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/showView"
+            app:layout_constraintEnd_toEndOf="@id/showView"
+            app:layout_constraintStart_toStartOf="@id/showView"
+            app:layout_constraintTop_toTopOf="@id/showView">
+
+            <CustomAttribute
+                app:attributeName="crossfade"
+                app:customFloatValue="0" />
+
+        </Constraint>
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+
+        <Constraint android:id="@id/centerGuideline" />
+
+        <Constraint
+            android:id="@+id/showView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="@id/showGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/centerGuideline" />
+
+        <Constraint
+            android:id="@+id/topArtistsHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/centerGuideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topArtists" />
+
+        <Constraint
+            android:id="@+id/showImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/showView"
+            app:layout_constraintEnd_toEndOf="@id/showView"
+            app:layout_constraintStart_toStartOf="@id/showView"
+            app:layout_constraintTop_toTopOf="@id/showView">
+
+            <CustomAttribute
+                app:attributeName="crossfade"
+                app:customFloatValue="1" />
+
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/topSongsHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/centerGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/showView" />
+
+    </ConstraintSet>
+
+    <Transition
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="350"
+        app:motionInterpolator="linear">
+
+        <KeyFrameSet>
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:motionTarget="@+id/topSongs" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="100"
+                app:motionTarget="@+id/topSongs" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:motionTarget="@+id/showImage" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="0"
+                app:motionTarget="@+id/topArtists" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:motionTarget="@+id/topArtists" />
+
+            <KeyAttribute
+                android:translationY="20dp"
+                app:framePosition="50"
+                app:motionTarget="@+id/showImage" />
+
+            <KeyAttribute
+                android:translationY="50dp"
+                app:framePosition="75"
+                app:motionTarget="@+id/topSongs" />
+
+            <KeyAttribute
+                android:translationY="50dp"
+                app:framePosition="100"
+                app:motionTarget="@+id/topSongs" />
+
+            <KeyAttribute
+                android:translationY="50dp"
+                app:framePosition="25"
+                app:motionTarget="@+id/topArtists" />
+
+            <KeyAttribute
+                android:translationY="50dp"
+                app:framePosition="0"
+                app:motionTarget="@+id/topArtists" />
+
+        </KeyFrameSet>
+
+    </Transition>
+
+</MotionScene>
