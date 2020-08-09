@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">Last.fm</string>
+
     <string name="top_artists_header">Top Artists</string>
     <string name="top_songs_header">Top Songs</string>
 
     <string name="top_artists_toolbar_title">Top 100 artists</string>
     <string name="top_songs_toolbar_title">Top 100 songs</string>
+    <string name="artist_info_toolbar_title">Artist info</string>
+
+    <string name="listeners">listeners: %1$s</string>
+    <string name="listeners_header">listeners:</string>
+    <string name="play_count">play count: %1$s</string>
+    <string name="play_count_header">play count:</string>
+    <string name="published">published: %1$s</string>
 
     <string name="default_error_message">Something went wrong</string>
 

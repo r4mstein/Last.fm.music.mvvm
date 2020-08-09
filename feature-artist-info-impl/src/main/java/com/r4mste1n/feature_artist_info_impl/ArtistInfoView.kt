@@ -71,7 +71,7 @@ class ArtistInfoView @Inject constructor() : BaseView(), Contract.View {
 
     private fun getTagChip(tag: String) = Chip(context).apply {
         text = tag
-        setChipBackgroundColorResource(R.color.red_500_alpha_100)
+        setChipBackgroundColorResource(R.color.teal_201)
         setTextColor(ContextCompat.getColor(context, android.R.color.white))
 
         context?.let {
@@ -92,13 +92,17 @@ class ArtistInfoView @Inject constructor() : BaseView(), Contract.View {
     }
 
     private fun setHearersCount(count: String) {
-        rootView.hearersCount?.text =
-            context.resources?.getString(R.string.listeners, count.formatCount())
+        rootView.hearersCountNew?.apply {
+            headerText = context.resources?.getString(R.string.listeners_header).orEmpty()
+            mainText = count.formatCount()
+        }
     }
 
     private fun setPlayCount(count: String) {
-        rootView.playCount?.text =
-            context.resources?.getString(R.string.play_count, count.formatCount())
+        rootView.playCountNew?.apply {
+            headerText = context.resources?.getString(R.string.play_count_header).orEmpty()
+            mainText = count.formatCount()
+        }
     }
 
     private fun setBio(bio: String) {
