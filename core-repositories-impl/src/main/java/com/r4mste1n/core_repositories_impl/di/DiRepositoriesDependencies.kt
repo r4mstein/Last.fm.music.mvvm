@@ -1,5 +1,6 @@
 package com.r4mste1n.core_repositories_impl.di
 
+import com.r4mste1n.core_db_api.DBManagerApi
 import com.r4mste1n.core_network_api.ErrorUtilsApi
 import com.r4mste1n.core_network_api.HttpClientApi
 
@@ -11,5 +12,7 @@ interface DiRepositoriesDependencies {
     fun errorUtilsApi(): ErrorUtilsApi
 
     fun httpClientApi(): HttpClientApi
+
+    fun dbManagerApi(): DBManagerApi
 
 }

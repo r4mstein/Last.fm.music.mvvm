@@ -1,5 +1,6 @@
 package com.r4mste1n.core_repositories_impl.di
 
+import com.r4mste1n.core_db_api.DBManagerApi
 import com.r4mste1n.core_network_api.ErrorUtilsApi
 import com.r4mste1n.core_network_api.HttpClientApi
 import com.r4mste1n.core_repositories_api.di.DiRepositoriesApi
@@ -42,7 +43,8 @@ abstract class DiRepositoriesComponent : DiRepositoriesApi {
     @Component(
         dependencies = [
             ErrorUtilsApi::class,
-            HttpClientApi::class
+            HttpClientApi::class,
+            DBManagerApi::class
         ]
     )
     @Singleton

@@ -53,6 +53,8 @@ dependencies {
     implementation project(':core-network-impl')
     implementation project(':core-repositories-api')
     implementation project(':core-repositories-impl')
+    implementation project(':core-db-api')
+    implementation project(':core-db-impl')
     implementation project(':feature-home-api')
     implementation project(':feature-home-impl')
     implementation project(':feature-top-artists-api')

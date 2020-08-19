@@ -2,7 +2,7 @@ package com.r4mste1n.feature_top_artists_impl
 
 import androidx.lifecycle.*
 import com.r4mste1n.core_common.Result
-import com.r4mste1n.core_common.models.responses.TopArtistsResponse
+import com.r4mste1n.core_common.models.data.TopArtistData
 import com.r4mste1n.core_repositories_api.TopArtistsRepoApi
 import com.r4mste1n.feature_top_artists_impl.adapter.AdapterData
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ class TopArtistsViewModel @Inject constructor(
             return@switchMap _topArtists
         }
 
-    private fun getUiResult(result: Result<TopArtistsResponse>): Result<ArrayList<AdapterData>> {
+    private fun getUiResult(result: Result<List<TopArtistData>>): Result<ArrayList<AdapterData>> {
         return when (result) {
             is Result.IsLoading -> {
                 Result.IsLoading
@@ -45,14 +45,14 @@ class TopArtistsViewModel @Inject constructor(
         }
     }
 
-    private fun convertLoadedDataToUiData(response: TopArtistsResponse) =
+    private fun convertLoadedDataToUiData(response: List<TopArtistData>) =
         ArrayList<AdapterData>().apply {
-            response.artists?.artist?.forEach {
+            response.forEach {
                 add(
                     AdapterData(
                         name = it.name,
-                        hearersCount = it.listeners,
-                        photoUrl = it.image?.getOrNull(2)?.text.orEmpty()
+                        hearersCount = it.hearersCount,
+                        photoUrl = it.photoUrl
                     )
                 )
             }

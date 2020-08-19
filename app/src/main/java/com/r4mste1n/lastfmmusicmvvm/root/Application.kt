@@ -17,7 +17,7 @@ class Application : Application() {
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
 
         // initialize di
-        ObjectGraph.initComponents()
+        ObjectGraph.initComponents(context = this)
 
     }
 
