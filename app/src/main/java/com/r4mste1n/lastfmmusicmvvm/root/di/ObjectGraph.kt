@@ -1,6 +1,8 @@
 package com.r4mste1n.lastfmmusicmvvm.root.di
 
+import android.content.Context
 import androidx.fragment.app.Fragment
+import com.r4mste1n.core_db_impl.di.DiDBComponent
 import com.r4mste1n.core_network_impl.di.DiNetworkComponent
 import com.r4mste1n.core_repositories_impl.di.DaggerDiRepositoriesComponent_DiRepositoriesDependenciesComponent
 import com.r4mste1n.core_repositories_impl.di.DiRepositoriesComponent
@@ -19,10 +21,16 @@ import com.r4mste1n.lastfmmusicmvvm.root.NavigatorImpl
  */
 object ObjectGraph {
 
+    private lateinit var context: Context
+
     private var repoComponent: DiRepositoriesComponent? = null
+    private var dbComponent: DiDBComponent? = null
 
-    fun initComponents() {
+    fun initComponents(context: Context) {
 
+        this.context = context
+
+        dbComponent = getDBComponent(context)
         repoComponent = getRepositoriesComponent()
 
         initHomeComponent()
@@ -62,7 +70,10 @@ object ObjectGraph {
         DaggerDiRepositoriesComponent_DiRepositoriesDependenciesComponent.builder()
             .errorUtilsApi(DiNetworkComponent.get().errorUtilsApi())
             .httpClientApi(DiNetworkComponent.get().httpClientApi())
+            .dBManagerApi(getDBComponent(context).dbManagerApi())
             .build()
     )
+
+    private fun getDBComponent(context: Context) = dbComponent ?: DiDBComponent.get(context)
 
 }
