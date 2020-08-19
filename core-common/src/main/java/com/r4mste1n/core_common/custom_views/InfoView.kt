@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.text.TextPaint
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -12,6 +14,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.withTranslation
 import com.r4mste1n.core_common.R
 import kotlin.math.ceil
+import kotlin.math.max
 import kotlin.math.roundToInt
 
 /**
@@ -41,6 +44,7 @@ class InfoView @JvmOverloads constructor(
     private var padding = DEFAULT_PADDING
     private var iconHeight = DEFAULT_ICON_HEIGHT
     private var iconPadding = DEFAULT_ICON_PADDING
+    private var mainTextTopPadding = DEFAULT_MAIN_TEXT_TOP_PADDING
     private var textSize = DEFAULT_TEXT_SIZE
 
     private var bgColor = ContextCompat.getColor(context, DEFAULT_BG_COLOR)
@@ -65,8 +69,12 @@ class InfoView @JvmOverloads constructor(
         isAntiAlias = true
     }
 
-    private var icon = ContextCompat.getDrawable(context, R.drawable.ic_listening)?.apply {
-        this.setBounds(0, 0, iconHeight, iconHeight)
+    private var icon: Drawable? = null
+
+    private val defaultIcon by lazy {
+        ContextCompat.getDrawable(context, R.drawable.ic_listening)?.apply {
+            this.setBounds(0, 0, iconHeight, iconHeight)
+        }
     }
 
     init {
@@ -78,17 +86,27 @@ class InfoView @JvmOverloads constructor(
         ).let {
             headerText = it.getString(R.styleable.InfoView_header_text).orEmpty()
             mainText = it.getString(R.styleable.InfoView_main_text).orEmpty()
-            textSize = it.getDimension(R.styleable.InfoView_text_size, DEFAULT_TEXT_SIZE)
+            textSize = it.getDimensionPixelSize(
+                R.styleable.InfoView_text_size,
+                DEFAULT_TEXT_SIZE
+            )
 
-            padding = it.getDimension(R.styleable.InfoView_padding, DEFAULT_PADDING)
-            iconHeight = it.getDimension(
+            padding = it.getDimension(
+                R.styleable.InfoView_padding,
+                DEFAULT_PADDING
+            )
+            iconHeight = it.getDimensionPixelSize(
                 R.styleable.InfoView_icon_height,
-                DEFAULT_ICON_HEIGHT.toFloat()
-            ).roundToInt()
-            iconPadding = it.getDimension(
+                DEFAULT_ICON_HEIGHT
+            )
+            iconPadding = it.getDimensionPixelSize(
                 R.styleable.InfoView_icon_padding,
-                DEFAULT_ICON_PADDING.toFloat()
-            ).roundToInt()
+                DEFAULT_ICON_PADDING
+            )
+            mainTextTopPadding = it.getDimensionPixelSize(
+                R.styleable.InfoView_main_text_top_padding,
+                DEFAULT_MAIN_TEXT_TOP_PADDING
+            )
 
             bgColor = it.getColor(
                 R.styleable.InfoView_bg_color,
@@ -110,7 +128,7 @@ class InfoView @JvmOverloads constructor(
                 )
                 icon = it.getDrawable(R.styleable.InfoView_icon)?.apply {
                     this.setBounds(0, 0, iconHeight, iconHeight)
-                }
+                } ?: defaultIcon
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -130,12 +148,12 @@ class InfoView @JvmOverloads constructor(
 
         when (heightMode) {
             MeasureSpec.AT_MOST, MeasureSpec.UNSPECIFIED -> {
-                setMeasuredDimension(widthSize, (padding * 2 + iconHeight).toInt())
+                setMeasuredDimension(widthSize, (padding * 2 + getViewHeight()).toInt())
             }
             MeasureSpec.EXACTLY -> {
                 iconHeight = (heightSize * 0.6).roundToInt()
-                padding = (heightSize * 0.2).toFloat()
-                textSize = (iconHeight * 0.2).toFloat()
+                padding = heightSize * 0.2f
+                textSize = (iconHeight * 0.2).toInt()
 
                 setupDrawableHeight()
                 setupTextSize()
@@ -148,32 +166,35 @@ class InfoView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
 
-        canvas.drawRect(
-            0f,
-            0f,
-            screenWidth.toFloat(),
-            padding * 2 + iconHeight,
-            bgPaint
-        )
+        canvas.drawColor(bgColor)
 
         canvas.withTranslation(padding, padding) {
             icon?.draw(canvas)
         }
 
         canvas.drawText(
-            headerText,
+            getEllipsizedText(headerText, headerTextPaint),
             padding + iconHeight + iconPadding,
             getTextHeight(headerTextPaint) + padding,
             headerTextPaint
         )
 
         canvas.drawText(
-            mainText,
+            getEllipsizedText(mainText, mainTextPaint),
             padding + iconHeight + iconPadding,
-            padding + iconHeight,
+            padding + getTextHeight(headerTextPaint) + getTextHeight(mainTextPaint) + mainTextTopPadding,
             mainTextPaint
         )
 
+    }
+
+    private fun getEllipsizedText(text: String, paint: TextPaint): String {
+        return TextUtils.ellipsize(
+            text,
+            paint,
+            screenWidth.toFloat() - padding * 2 - iconPadding - (icon?.bounds?.right ?: 0),
+            TextUtils.TruncateAt.END
+        ).toString()
     }
 
     private fun setupFields() {
@@ -190,9 +211,16 @@ class InfoView @JvmOverloads constructor(
         }
     }
 
+    private fun getViewHeight(): Float {
+        return max(
+            a = iconHeight.toFloat(),
+            b = getTextHeight(headerTextPaint) + getTextHeight(mainTextPaint) + mainTextTopPadding
+        )
+    }
+
     private fun setupTextSize() {
-        mainTextPaint.textSize = textSize
-        headerTextPaint.textSize = textSize
+        mainTextPaint.textSize = textSize.toFloat()
+        headerTextPaint.textSize = textSize.toFloat()
     }
 
     private fun setupDrawableHeight() {
@@ -213,7 +241,8 @@ class InfoView @JvmOverloads constructor(
         private const val DEFAULT_PADDING = 42f
         private const val DEFAULT_ICON_HEIGHT = 64
         private const val DEFAULT_ICON_PADDING = 32
-        private const val DEFAULT_TEXT_SIZE = 26f
+        private const val DEFAULT_TEXT_SIZE = 26
+        private const val DEFAULT_MAIN_TEXT_TOP_PADDING = 32
 
         private const val DEFAULT_TEXT_COLOR = android.R.color.white
         private const val DEFAULT_BG_COLOR = android.R.color.holo_red_dark

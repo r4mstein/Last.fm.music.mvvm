@@ -9,6 +9,7 @@
         <attr name="icon_height" format="dimension" />
         <attr name="icon_padding" format="dimension" />
         <attr name="text_size" format="dimension" />
+        <attr name="main_text_top_padding" format="dimension" />
         <attr name="bg_color" format="color" />
         <attr name="text_color" format="color" />
         <attr name="header_font" format="reference" />
